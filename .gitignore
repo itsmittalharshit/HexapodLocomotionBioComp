@@ -1,0 +1,4 @@
+env/
+old/
+__pycache__/
+*.sif

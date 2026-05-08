@@ -1,0 +1,17 @@
+Bootstrap: docker
+From: mambaorg/micromamba
+
+%files
+   . /home/student/pybeast
+   environment.yml
+
+%post
+    apt-get update
+    apt-get install -y libgl-dev libglu-dev
+    micromamba create -q -y -f environment.yml -p /opt/conda-env
+    micromamba clean -aqy
+    micromamba config set --system use_lockfiles false
+    ln -s /home/student/pybeast/ /opt/pybeast
+
+%runscript
+    micromamba run -p /opt/conda-env "$@"
